@@ -17,7 +17,7 @@ import AppTrackingTransparency
 
  Don't forget to add "NSUserTrackingUsageDescription" with a description to your Info.plist.
  */
-pubic class IDFACollection: Plugin {
+public class IDFACollection: Plugin {
     public let type = PluginType.enrichment
     weak public var analytics: Analytics? = nil
     @Atomic private var alreadyAsked = false
