@@ -17,12 +17,14 @@ import AppTrackingTransparency
 
  Don't forget to add "NSUserTrackingUsageDescription" with a description to your Info.plist.
  */
-class IDFACollection: Plugin {
-    let type = PluginType.enrichment
-    weak var analytics: Analytics? = nil
+pubic class IDFACollection: Plugin {
+    public let type = PluginType.enrichment
+    weak public var analytics: Analytics? = nil
     @Atomic private var alreadyAsked = false
-
-    func execute<T: RawEvent>(event: T?) -> T? {
+    
+    public init() {}
+    
+    public func execute<T: RawEvent>(event: T?) -> T? {
         let status = ATTrackingManager.trackingAuthorizationStatus
 
         let trackingStatus = statusToString(status)
@@ -48,7 +50,7 @@ class IDFACollection: Plugin {
 }
 
 extension IDFACollection: iOSLifecycle {
-    func applicationDidBecomeActive(application: UIApplication?) {
+    public func applicationDidBecomeActive(application: UIApplication?) {
         let status = ATTrackingManager.trackingAuthorizationStatus
 
         _alreadyAsked.withValue { alreadyAsked in
