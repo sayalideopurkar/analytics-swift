@@ -53,7 +53,7 @@ extension IDFACollection: iOSLifecycle {
     public func applicationDidBecomeActive(application: UIApplication?) {
         let status = ATTrackingManager.trackingAuthorizationStatus
 
-        _alreadyAsked.withValue { alreadyAsked in
+        _alreadyAsked.mutate { alreadyAsked in
             if status == .notDetermined && !alreadyAsked {
                 // we don't know, so should ask the user.
                 alreadyAsked = true
@@ -75,7 +75,7 @@ extension IDFACollection {
             return UIDevice.current.identifierForVendor?.uuidString
         }
     }
-    
+
     func statusToString(_ status: ATTrackingManager.AuthorizationStatus) -> String {
         var result = "unknown"
         switch status {
@@ -92,7 +92,7 @@ extension IDFACollection {
         }
         return result
     }
-    
+
     func askForPermission() {
         ATTrackingManager.requestTrackingAuthorization { status in
             // send a track event that shows the results of asking the user for permission.
